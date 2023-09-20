@@ -6,7 +6,7 @@ import TokenABI from "./contracts/TokenContract.json";
 import Footer from "./components/Footer";
 import Header from "./components/header/Header"
 import SmoothSlider from "./components/smooth-slider/SmoothSlider";
-import { loadPresaleData,loadTokenHolding } from "./helpers/web3helper";
+import { loadPresaleData,loadTokenHolding,loadPresaleInfo } from "./helpers/web3helper";
 
 function App() {
 
@@ -16,11 +16,14 @@ function App() {
     useContract("0x4e1C1BD35397042319Fe252d2e324ad439B19f1e", TokenABI);
   const address = useAddress();
   const [UserBalanceInfo, setUserBalanceInfo] = useState({});
+  const [PresaleInfo, setPresaleInfo] = useState({});
   const [tokenHolding,setTokenHolding] = useState(0);
 
   useEffect(() => {
-    if ( (!PresaleContractLoading) && (address))
-      loadPresaleData(address,PresaleContract, setUserBalanceInfo);   
+    if ( (!PresaleContractLoading) && (address)){
+      loadPresaleData(address,PresaleContract, setUserBalanceInfo);
+      loadPresaleInfo(PresaleContract,setPresaleInfo);   
+    }
     
     if((!TokenContractLoading) && (address)){
       loadTokenHolding(address,TokenContract,setTokenHolding);
@@ -33,7 +36,7 @@ function App() {
   return (
     <div style={{backgroundColor:"black", height: 'auto', overflowX: 'hidden', display: "flex", flexDirection: 'column'}}>
       <Header></Header>
-      {/* <ClaimToken tokenHolding={tokenHolding} contract={PresaleContract} isContractLoading={PresaleContractLoading} UserBalanceInfo={UserBalanceInfo}></ClaimToken> */}
+      <ClaimToken tokenHolding={tokenHolding} contract={PresaleContract} isContractLoading={PresaleContractLoading} UserBalanceInfo={UserBalanceInfo} presaleInfo={PresaleInfo}></ClaimToken>
       <SmoothSlider></SmoothSlider>
     </div>
   );

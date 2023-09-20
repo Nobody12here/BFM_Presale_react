@@ -43,5 +43,12 @@ async function loadTokenHolding(address,tokenContract,setTokenHolding){
     const tokens = await tokenContract.call('balanceOf',[address])
     setTokenHolding(tokens)
 }
-
-export {loadPresaleData,ClaimTokens,loadTokenHolding}
+async function loadPresaleInfo(contract,setPresaleInfo){
+    const presaleInfo1 = await contract.call("presalePhases",[0])
+    const presaleInfo2 = await contract.call("presalePhases",[1])
+    const presaleInfo3 = await contract.call("presalePhases",[2])
+    let tempArray = []
+    tempArray.push(presaleInfo1[2],presaleInfo2[2],presaleInfo3[2]);
+    setPresaleInfo(tempArray)
+}
+export {loadPresaleData,ClaimTokens,loadTokenHolding,loadPresaleInfo}

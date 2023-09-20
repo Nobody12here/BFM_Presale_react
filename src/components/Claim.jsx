@@ -11,7 +11,7 @@ import {
 import ClaimItems from "./ClaimItems";
 import { useAddress } from "@thirdweb-dev/react";
 import { ClaimTokens } from "../helpers/web3helper";
-const ClaimToken = ({ tokenHolding,contract,isContractLoading,UserBalanceInfo }) => {
+const ClaimToken = ({ tokenHolding,contract,isContractLoading,UserBalanceInfo,presaleInfo }) => {
   const address = useAddress();
   const matches = useMediaQuery("(min-width:900px)");
   const stack = {
@@ -121,7 +121,7 @@ const ClaimToken = ({ tokenHolding,contract,isContractLoading,UserBalanceInfo })
                 width: "100%",
               }}
             >
-              <ClaimItems BalanceInfo={UserBalanceInfo}></ClaimItems>
+              <ClaimItems BalanceInfo={UserBalanceInfo} presaleInfo={presaleInfo}></ClaimItems>
               <Box
                 sx={{
                   display: "flex",
