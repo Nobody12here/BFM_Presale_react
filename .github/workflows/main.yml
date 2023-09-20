@@ -14,4 +14,5 @@ jobs:
           node-version: 16
       - run: npm install
       - run: npm install -g surge
-      - run: surge ./ presale-claim.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+      - run: npm run build
+      - run: surge ./dist presale-claim.surge.sh --token ${{ secrets.SURGE_TOKEN }}
